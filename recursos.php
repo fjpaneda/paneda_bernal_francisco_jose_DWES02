@@ -32,28 +32,29 @@
     );
     
     define('USUARIOS',
-    array(
         array(
-            "nombre" => "Iker",
-            "apellido" => "Arana",
-            "dni" => "12345678Z"
-        ),
-        array(
-            "nombre" => "María",
-            "apellido" => "Gómez",
-            "dni" => "87654321X"
-        ),
-        array(
-            "nombre" => "Carlos",
-            "apellido" => "López",
-            "dni" => "13579246Y"
-        ),
-        array(
-            "nombre" => "Laura",
-            "apellido" => "Martínez",
-            "dni" => "24681357T"
+            array(
+                "nombre" => "Iker",
+                "apellido" => "Arana",
+                "dni" => "12345678Z"
+            ),
+            array(
+                "nombre" => "María",
+                "apellido" => "Gómez",
+                "dni" => "87654321X"
+            ),
+            array(
+                "nombre" => "Carlos",
+                "apellido" => "López",
+                "dni" => "13579246Y"
+            ),
+            array(
+                "nombre" => "Laura",
+                "apellido" => "Martínez",
+                "dni" => "24681357T"
+            )
         )
-    )
+    );
     
     function letra_nif($dni) {
             return substr("TRWAGMYFPDXBNJZSQVHLCKE",strtr($dni,"XYZ","012")%23,1);
