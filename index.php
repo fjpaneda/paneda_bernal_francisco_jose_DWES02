@@ -19,6 +19,7 @@
             <br>
             <label for="modelo">Modelo: </label>
             <select name="modelo" id="modelo">
+                <option value="" disabled selected hidden>Escoge un vehículo...</option>
                 <option value="Lancia">Lancia Stratos</option>
                 <option value="Audi">Audi Quattro</option>
                 <option value="Ford">Ford Escort RS1800</option>
