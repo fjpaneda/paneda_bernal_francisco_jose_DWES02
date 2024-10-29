@@ -7,7 +7,7 @@
     </head>
     
     <body>
-        <form action="" method="post">
+        <form action="request.php" method="post">
             <label for="nombre">Nombre: </label>
             <input type="text" name="nombre" id="nombre" placeholder="Nombre del usuario">
             <br>
@@ -30,7 +30,7 @@
             <input type="date" name="fecha" id="fecha">
             <br>
             <label for="duracion">Duración de la Reserva (en días): </label>
-            <input type="number" name="duracion" id="duracion" placeholder="Días de reserva">
+            <input type="number" name="duracion" id="duracion" placeholder="Días de reserva entren1ny 30">
             <br>
             <input type="submit" value="Enviar">
         </form>    
