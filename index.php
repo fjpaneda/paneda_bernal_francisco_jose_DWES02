@@ -18,7 +18,15 @@
 
     if (isset($_POST['dni'])){
         //comprobar que el dni es correcto
+        $dni_correcto = false;
+        $dni_usuario = $_POST['dni'];
+        $numero_dni = rtrim($dni_usuario,$dni_usuario[strlen($dni_usuario)-1]);
+        $letra = letra_nif($numero_dni);
+        if ($letra == $dni_usuario[strlen($dni_usuario)-1]){
+            $dni_correcto = true;
+        }
     }
+    
     if (isset($_POST['modelo'])){
         $modelo_elegido = $_POST['modelo'];
         //comprobar que el modelo esta seleccionado
