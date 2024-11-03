@@ -1,4 +1,12 @@
 <?php
+
+/*
+    fichero con varias funciones para el tratamiento de fechas
+    alguna no se utiliza finalmente en la práctica, 
+    pero sí las he usado en algún punto intermedio, y he decidido dejarlas
+    a modo de "libreria" que puede ser reutilizada
+
+*/
     function modificar_fecha($fecha, $duracion){
 
         if ($duracion > 0){

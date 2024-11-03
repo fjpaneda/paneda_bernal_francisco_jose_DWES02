@@ -2,15 +2,26 @@
     require "lib/recursos.php";
     require "lib/fechas.php";
 
+    $datos = array(
+        "nombre" => array("valor"=> "", "valido" => false),
+        "apellido" => array("valor"=> "", "valido" => false),
+        "dni" => array("valor"=> "", "valido" => false),
+        "modelo" => array("imagen"=> "", "disponible" => false),
+        "fecha_inicio" => array("valor"=> "", "valido" => false),
+        "duracion" => array("valor"=> "", "valido" => false)
+    );
+
     if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['dni'])){
         //nombre y apellido rellenados en el formulario
-        $nombre_usuario = $_POST['nombre'];
-        $apellido_usuario = $_POST['apellido'];
-        $dni_usuario = $_POST['dni'];
+        $datos["nombre"]["valor"] = $_POST['nombre'];
+        $datos["apellido"]["valor"] = $_POST['apellido'];
+        $datos["dni"]["valor"] = $_POST['dni'];
         $usuario_valido = false;
         foreach (USUARIOS as $usuario){
-            if ($nombre_usuario == $usuario['nombre'] && $apellido_usuario == $usuario['apellido'] && $dni_usuario == $usuario['dni']){
-                $usuario_valido = true;
+            if ($datos["nombre"]["valor"] == $usuario['nombre'] && $datos["apellido"]["valor"] == $usuario['apellido'] && $datos["dni"]["valor"] == $usuario['dni']){
+                $datos["nombre"]["valido"] = true;
+                $datos["apellido"]["valido"] = true;
+                $datos["dni"]["valido"] = true;
                 break;
             }
         }

@@ -50,6 +50,19 @@
     // echo compare_dates(suma_dias($hoy, $duracion));
     // echo resta_dias($hoy, $duracion),"\n";
     // echo compare_dates(resta_dias($hoy, $duracion));
-    echo compare_dates(modificar_fecha($hoy, $duracion));
+    echo fecha_valida(modificar_fecha($hoy, $duracion));
     
+    $datos = array(
+        "nombre" => array("valor"=> "", "valido" => false),
+        "apellido" => array("valor"=> "", "valido" => false),
+        "dni" => array("valor"=> "", "valido" => false),
+        "modelo" => array("valor"=> "", "disponible" => false),
+        "fecha_inicio" => array("valor"=> "", "valido" => false),
+        "duracion" => array("valor"=> "", "valido" => false)
+    );
+
+    $datos["nombre"]["valido"]= true;
+
+    var_dump($datos);
+
 ?>

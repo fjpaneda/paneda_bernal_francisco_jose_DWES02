@@ -1,5 +1,11 @@
 <?php
 
+/* 
+    fichero con las estructuras de datos facilitadas para resolver la unidad,
+    así como la función para validad la letra del dni, también facilitada en el enunciado 
+*/
+
+
 $coches = array(
     array(
         "id" => 1,
