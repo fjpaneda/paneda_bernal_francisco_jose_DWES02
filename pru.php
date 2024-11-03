@@ -1,0 +1,55 @@
+<?php
+    require "lib/fechas.php";
+
+    // function modificar_fecha($fecha, $duracion){
+
+    //     if ($duracion > 0){
+    //         $dura_str = "+ $duracion days";
+    //     } 
+    //     else {
+    //         $dura_str = "- $duracion days";
+    //     }
+    //     return date("Y-m-d",strtotime($fecha.$dura_str));
+    // }
+
+
+    // function suma_dias($fecha, $duracion){
+            
+    //     $dura_str = "+ $duracion days";
+    //     return date("Y-m-d",strtotime($fecha.$dura_str));
+        
+    // }
+
+    // function resta_dias($fecha, $duracion){
+            
+    //     $dura_str = "- $duracion days";
+    //     return date("Y-m-d",strtotime($fecha.$dura_str));
+    // }
+        
+    // function compare_dates($fecha){
+    //     $hoy = date("Y-m-d");
+    //     if ($fecha > $hoy){
+    //         echo "la fecha es en el futuro\n";
+    //     }
+    //     elseif ($fecha < $hoy){
+    //         echo "la fecha es en el pasado\n";
+    //     }
+    //     else {
+    //         echo "la fecha es hoy\n";
+    //     }
+    // }
+
+
+
+    $hoy = date("Y-m-d");
+    //echo date("Y-m-d",strtotime($fecha."-10 days")),"\n";
+    echo ("Introduce la duracion: ");
+    //$duracion = fgets(STDIN);
+    $duracion = rtrim(fgets(STDIN),"\n");
+    // echo suma_dias($hoy, $duracion),"\n";
+    // echo compare_dates(suma_dias($hoy, $duracion));
+    // echo resta_dias($hoy, $duracion),"\n";
+    // echo compare_dates(resta_dias($hoy, $duracion));
+    echo compare_dates(modificar_fecha($hoy, $duracion));
+    
+?>

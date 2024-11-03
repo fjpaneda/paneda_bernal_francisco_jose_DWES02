@@ -1,5 +1,6 @@
 <?php
     require "lib/recursos.php";
+    require "lib/fechas.php";
 
     if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['dni'])){
         //nombre y apellido rellenados en el formulario
@@ -45,6 +46,9 @@
 
     if (isset($_POST['fecha'])){
         //comprobar que la fecha es posterior a la actual
+        $fecha_alquiler = $_POST['fecha'];
+        $fecha_actual = date('Y-m-d');
+        $fecha_valida = fecha_valida($fecha_alquiler);
     }
 
     if (isset($_POST['duracion'])){
@@ -55,6 +59,8 @@
             $duracion_valida = false;
         }
     }
+
+    
 ?>
 
 
