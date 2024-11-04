@@ -1,5 +1,6 @@
 <?php
     require "lib/fechas.php";
+    require "lib/recursos.php";
 
     // function modificar_fecha($fecha, $duracion){
 
@@ -41,28 +42,50 @@
 
 
 
-    $hoy = date("Y-m-d");
-    //echo date("Y-m-d",strtotime($fecha."-10 days")),"\n";
-    echo ("Introduce la duracion: ");
-    //$duracion = fgets(STDIN);
-    $duracion = rtrim(fgets(STDIN),"\n");
-    // echo suma_dias($hoy, $duracion),"\n";
-    // echo compare_dates(suma_dias($hoy, $duracion));
-    // echo resta_dias($hoy, $duracion),"\n";
-    // echo compare_dates(resta_dias($hoy, $duracion));
-    echo fecha_valida(modificar_fecha($hoy, $duracion));
+    // $hoy = date("Y-m-d");
+    // //echo date("Y-m-d",strtotime($fecha."-10 days")),"\n";
+    // echo ("Introduce la duracion: ");
+    // //$duracion = fgets(STDIN);
+    // $duracion = rtrim(fgets(STDIN),"\n");
+    // // echo suma_dias($hoy, $duracion),"\n";
+    // // echo compare_dates(suma_dias($hoy, $duracion));
+    // // echo resta_dias($hoy, $duracion),"\n";
+    // // echo compare_dates(resta_dias($hoy, $duracion));
+    // echo fecha_valida(modificar_fecha($hoy, $duracion));
     
-    $datos = array(
-        "nombre" => array("valor"=> "", "valido" => false),
-        "apellido" => array("valor"=> "", "valido" => false),
-        "dni" => array("valor"=> "", "valido" => false),
-        "modelo" => array("valor"=> "", "disponible" => false),
-        "fecha_inicio" => array("valor"=> "", "valido" => false),
-        "duracion" => array("valor"=> "", "valido" => false)
-    );
+    // $datos = array(
+    //     "nombre" => array("valor"=> "", "valido" => false),
+    //     "apellido" => array("valor"=> "", "valido" => false),
+    //     "dni" => array("valor"=> "", "valido" => false),
+    //     "modelo" => array("valor"=> "", "disponible" => false),
+    //     "fecha_inicio" => array("valor"=> "", "valido" => false),
+    //     "duracion" => array("valor"=> "", "valido" => false)
+    // );
 
-    $datos["nombre"]["valido"]= true;
+    // $datos["nombre"]["valido"]= true;
 
-    var_dump($datos);
+    // var_dump($datos);
+
+    echo "Introduce el dni: ";
+    $dni = rtrim(fgets(STDIN),"\n");
+
+    //$dni = rtrim($dni_usuario,"\n");
+    
+    if (dni_correcto($dni)){
+        echo "El dni es correcto\n";
+    }
+    else {
+        echo "el dni es incorrecto\n";
+    }
+   
+    function dni_correcto($dni){
+        $letra_dni = strtoupper($dni[strlen($dni)-1]);
+        $letra = letra_nif(rtrim($dni,$letra_dni));
+        if ($letra == $letra_dni) {
+            return true;
+        }
+        return false;
+    }
+
 
 ?>

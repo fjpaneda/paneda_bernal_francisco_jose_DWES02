@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require "lib/recursos.php";
     require "lib/fechas.php";
 
@@ -16,7 +17,6 @@
         $datos["nombre"]["valor"] = $_POST['nombre'];
         $datos["apellido"]["valor"] = $_POST['apellido'];
         $datos["dni"]["valor"] = $_POST['dni'];
-        $usuario_valido = false;
         foreach (USUARIOS as $usuario){
             if ($datos["nombre"]["valor"] == $usuario['nombre'] && $datos["apellido"]["valor"] == $usuario['apellido'] && $datos["dni"]["valor"] == $usuario['dni']){
                 $datos["nombre"]["valido"] = true;
@@ -30,31 +30,12 @@
 
     if (isset($_POST['dni'])){
         //comprobar que el dni es correcto
-        $dni_correcto = false;
+        
         $dni_usuario = $_POST['dni'];
-        $numero_dni = rtrim($dni_usuario,$dni_usuario[strlen($dni_usuario)-1]);
-        $letra = letra_nif($numero_dni);
-        if ($letra == $dni_usuario[strlen($dni_usuario)-1]){
-            $dni_correcto = true;
-        }
+        $datos["dni"]["valido"] = dni_correcto($dni_usuario);
     }
     
-    if (isset($_POST['modelo'])){
-        $modelo_elegido = $_POST['modelo'];
-        //comprobar que el modelo esta seleccionado
-        foreach ($coches as $coche) {
-            if ($modelo_elegido == $coche['modelo']){
-                if($coche['disponible']){
-                    $coche['disponible'] = false;
-                    $coche['fecha_inicio'] = $_POST['fecha'];
-                    $coche['fecha_fin'] = $_POST['fecha'] + $_POST['duracion'];
-                }
-
-            }
-        }
-
-    }
-
+    
     if (isset($_POST['fecha'])){
         //comprobar que la fecha es posterior a la actual
         $fecha_alquiler = $_POST['fecha'];
@@ -69,6 +50,31 @@
         if ($dias < 1 || $dias >30){
             $duracion_valida = false;
         }
+    }
+
+    if (isset($_POST['modelo'])){
+        $modelo_elegido = $_POST['modelo'];
+        //comprobar que el modelo esta seleccionado
+        foreach ($coches as $coche) {
+            if ($modelo_elegido == $coche['modelo']){
+                if($coche['disponible']){
+                    $coche['disponible'] = false;
+                    $coche['fecha_inicio'] = $_POST['fecha'];
+                    $coche['fecha_fin'] = modificar_fecha($_POST['fecha'],$_POST['duracion']);
+                }
+
+            }
+        }
+
+    }
+
+    function dni_correcto($dni){
+        $letra_dni = strtoupper($dni[strlen($dni)-1]);
+        $letra = letra_nif(rtrim($dni,$letra_dni));
+        if ($letra == $letra_dni) {
+            return true;
+        }
+        return false;
     }
 
     
