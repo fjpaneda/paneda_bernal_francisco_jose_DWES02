@@ -4,51 +4,46 @@
     require "lib/fechas.php";
 
     $datos = array(
-        "nombre" => array("valor"=> "", "valido" => false),
-        "apellido" => array("valor"=> "", "valido" => false),
-        "dni" => array("valor"=> "", "valido" => false),
-        "modelo" => array("imagen"=> "", "disponible" => false),
-        "fecha_inicio" => array("valor"=> "", "valido" => false),
-        "duracion" => array("valor"=> "", "valido" => false)
+        'nombre' => array('valor'=> "", 'valido' => false),
+        'apellido' => array('valor'=> "", 'valido' => false),
+        'dni' => array('valor'=> "", 'valido' => false),
+        'usuario_registrado' => false,
+        'modelo' => array('valor'=> "",'imagen'=> "", 'disponible' => false),
+        'fecha_inicio' => array('valor'=> "", 'valido' => false),
+        'duracion' => array('valor'=> "", 'valido' => false)
     );
 
-    if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['dni'])){
+    if (isset($_POST['nombre']) && !empty($_POST['nombre'])){
         //nombre y apellido rellenados en el formulario
-        $datos["nombre"]["valor"] = $_POST['nombre'];
-        $datos["apellido"]["valor"] = $_POST['apellido'];
-        $datos["dni"]["valor"] = $_POST['dni'];
-        foreach (USUARIOS as $usuario){
-            if ($datos["nombre"]["valor"] == $usuario['nombre'] && $datos["apellido"]["valor"] == $usuario['apellido'] && $datos["dni"]["valor"] == $usuario['dni']){
-                $datos["nombre"]["valido"] = true;
-                $datos["apellido"]["valido"] = true;
-                $datos["dni"]["valido"] = true;
-                break;
-            }
-        }
+        $datos['nombre']['valor'] = $_POST['nombre'];
+        $datos['nombre']['valido'] = true;
+
+    }
+
+    if (isset($_POST['apellido']) && !empty($_POST['apellido'])){
+        $datos['apellido']['valor'] = $_POST['apellido'];
+        $datos['apellido']['valido'] = true;
     }
     
 
-    if (isset($_POST['dni'])){
-        //comprobar que el dni es correcto
-        
-        $dni_usuario = $_POST['dni'];
-        $datos["dni"]["valido"] = dni_correcto($dni_usuario);
+    if (isset($_POST['dni']) && (!empty($_POST['dni']))){
+        $datos['dni']['valor'] = $_POST['dni'];
+        $datos['dni']['valido'] = dni_correcto($datos['dni']['valor']);
     }
-    
+
+    $datos['usuario_registrado'] = comprobar_registro($datos);
     
     if (isset($_POST['fecha'])){
         //comprobar que la fecha es posterior a la actual
-        $fecha_alquiler = $_POST['fecha'];
-        $fecha_actual = date('Y-m-d');
-        $fecha_valida = fecha_valida($fecha_alquiler);
+        $datos['fecha_inicio']['valor'] = $_POST['fecha'];
+        $datos['fecha_inicio']['valido'] = fecha_valida($fecha_alquiler);
     }
 
     if (isset($_POST['duracion'])){
         //comprobar que el valor es >=1 y <=30
-        $duracion_valida = true;
-        $dias = $_POST['duracion'];
-        if ($dias < 1 || $dias >30){
-            $duracion_valida = false;
+        $datos['duracion']['valor'] = $_POST['duracion'];
+        if ($$datos['duracion']['valor'] >= 1 && $datos['duracion']['valor'] <= 30){
+            $datos['duracion']['valido'] = true;
         }
     }
 
@@ -75,6 +70,20 @@
             return true;
         }
         return false;
+    }
+
+    function comprobar_registro($datos_rellenados){
+        foreach(USUARIOS as $usuario){
+            if($datos_rellenados['nombre']['valor'] == $usuario['nombre'] && $datos_rellenados['apellido']['valor'] == $usuario['apellido'] && $datos_rellenados['dni']['valor'] == $usuario['dni']){
+                return true;                
+            }
+
+        }
+        return false;
+    }
+
+    function comprobar_datos(){
+        
     }
 
     

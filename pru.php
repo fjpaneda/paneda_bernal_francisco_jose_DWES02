@@ -2,6 +2,15 @@
     require "lib/fechas.php";
     require "lib/recursos.php";
 
+
+    echo ("Introduce un nombre: ");
+    $nombre = rtrim(fgets(STDIN),"\n");
+    if (isset($nombre) && !empty($nombre)){
+        echo "1\n";
+    }
+    else{echo("2\n");}
+
+
     // function modificar_fecha($fecha, $duracion){
 
     //     if ($duracion > 0){
@@ -66,26 +75,30 @@
 
     // var_dump($datos);
 
-    echo "Introduce el dni: ";
-    $dni = rtrim(fgets(STDIN),"\n");
+    // echo "Introduce el dni: ";
+    // $dni = rtrim(fgets(STDIN),"\n");
 
     //$dni = rtrim($dni_usuario,"\n");
     
-    if (dni_correcto($dni)){
-        echo "El dni es correcto\n";
-    }
-    else {
-        echo "el dni es incorrecto\n";
-    }
+    // if (empty($dni)){
+    //     echo "El dni esta vacio\n";
+    // }
+
+    // if (dni_correcto($dni)){
+    //     echo "El dni es correcto\n";
+    // }
+    // else {
+    //     echo "el dni es incorrecto\n";
+    // }
    
-    function dni_correcto($dni){
-        $letra_dni = strtoupper($dni[strlen($dni)-1]);
-        $letra = letra_nif(rtrim($dni,$letra_dni));
-        if ($letra == $letra_dni) {
-            return true;
-        }
-        return false;
-    }
+    // function dni_correcto($dni){
+    //     $letra_dni = strtoupper($dni[strlen($dni)-1]);
+    //     $letra = letra_nif(rtrim($dni,$letra_dni));
+    //     if ($letra == $letra_dni) {
+    //         return true;
+    //     }
+    //     return false;
+    // }
 
 
 ?>
