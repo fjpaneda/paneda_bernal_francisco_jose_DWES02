@@ -8,9 +8,10 @@
         'apellido' => array('valor'=> "", 'valido' => false),
         'dni' => array('valor'=> "", 'valido' => false),
         'usuario_registrado' => false,
-        'modelo' => array('valor'=> "",'imagen'=> "", 'disponible' => false),
+        'modelo' => "",
         'fecha_inicio' => array('valor'=> "", 'valido' => false),
-        'duracion' => array('valor'=> "", 'valido' => false)
+        'duracion' => array('valor'=> "", 'valido' => false),
+        'coche_alquilado' => false
     );
 
     if (isset($_POST['nombre']) && !empty($_POST['nombre'])){
@@ -36,33 +37,39 @@
     if (isset($_POST['fecha'])){
         //comprobar que la fecha es posterior a la actual
         $datos['fecha_inicio']['valor'] = $_POST['fecha'];
-        $datos['fecha_inicio']['valido'] = fecha_valida($fecha_alquiler);
+        $datos['fecha_inicio']['valido'] = fecha_valida($datos['fecha_inicio']['valor']);
     }
 
     if (isset($_POST['duracion'])){
         //comprobar que el valor es >=1 y <=30
         $datos['duracion']['valor'] = $_POST['duracion'];
-        if ($$datos['duracion']['valor'] >= 1 && $datos['duracion']['valor'] <= 30){
+        if ($datos['duracion']['valor'] >= 1 && $datos['duracion']['valor'] <= 30){
             $datos['duracion']['valido'] = true;
         }
     }
 
-    if (isset($_POST['modelo'])){
-        $modelo_elegido = $_POST['modelo'];
+    if (isset($_POST['modelo']) && !empty($_POST['modelo'])){
+        $datos['modelo'] = $_POST['modelo'];
+        $datos['coche_alquilado'] = alquilar_coche($datos, $coches);
         //comprobar que el modelo esta seleccionado
-        foreach ($coches as $coche) {
-            if ($modelo_elegido == $coche['modelo']){
-                if($coche['disponible']){
-                    $coche['disponible'] = false;
-                    $coche['fecha_inicio'] = $_POST['fecha'];
-                    $coche['fecha_fin'] = modificar_fecha($_POST['fecha'],$_POST['duracion']);
-                }
-
-            }
-        }
-
+        
     }
 
+    $_SESSION['datos'] = $datos;
+
+    
+
+    if(isset($_POST['enviado'])){
+        if($datos['coche_alquilado']){
+            header('Location: ./valido.php');
+        }
+        else{
+            header('Location: ./no_valido.php');
+        }
+    }
+
+
+    
     function dni_correcto($dni){
         $letra_dni = strtoupper($dni[strlen($dni)-1]);
         $letra = letra_nif(rtrim($dni,$letra_dni));
@@ -74,7 +81,7 @@
 
     function comprobar_registro($datos_rellenados){
         foreach(USUARIOS as $usuario){
-            if($datos_rellenados['nombre']['valor'] == $usuario['nombre'] && $datos_rellenados['apellido']['valor'] == $usuario['apellido'] && $datos_rellenados['dni']['valor'] == $usuario['dni']){
+            if(strtoupper($datos_rellenados['nombre']['valor']) == strtoupper($usuario['nombre']) && strtoupper($datos_rellenados['apellido']['valor']) == strtoupper($usuario['apellido']) && $datos_rellenados['dni']['valor'] == $usuario['dni']){
                 return true;                
             }
 
@@ -82,8 +89,23 @@
         return false;
     }
 
-    function comprobar_datos(){
-        
+
+    function alquilar_coche($dato){
+
+        global $coches;
+        if ($dato['usuario_registrado'] && $dato['fecha_inicio']['valido'] && $dato['duracion']['valido']){
+        foreach ($coches as $coche) {
+            if ($dato['modelo'] == $coche['id']){
+                if($coche['disponible']){
+                    $coche['disponible'] = false;
+                    $coche['fecha_inicio'] = $_POST['fecha'];
+                    $coche['fecha_fin'] = modificar_fecha($_POST['fecha'],$_POST['duracion']);
+                    return true;
+                }
+
+            }
+        }
+        return false;}
     }
 
     
@@ -118,10 +140,10 @@
             <label for="modelo">Modelo: </label>
             <select name="modelo" id="modelo">
                 <option value="" disabled selected hidden>Escoge un vehículo...</option>
-                <option value="Lancia Stratos">Lancia Stratos</option>
-                <option value="Audi Quattro">Audi Quattro</option>
-                <option value="Ford Escort RS1800">Ford Escort RS1800</option>
-                <option value="Subaru Impreza 555">Subaru Impreza 555</option>
+                <option value=1>Lancia Stratos</option>
+                <option value=2>Audi Quattro</option>
+                <option value=3>Ford Escort RS1800</option>
+                <option value=4>Subaru Impreza 555</option>
             </select>
             <br>
             <label for="fecha">Fecha de Inicio de la Reserva</label>
@@ -130,6 +152,7 @@
             <label for="duracion">Duración de la Reserva (en días): </label>
             <input type="number" name="duracion" id="duracion" placeholder="Días de reserva entre 1 y 30" size = 30 >
             <br>
+            <input type="hidden" name="enviado">
             <input type="submit" value="Enviar">
         </form>    
     </body>
