@@ -1,8 +1,7 @@
 <?php
 
 /* 
-    fichero con las estructuras de datos facilitadas para resolver la unidad,
-    así como la función para validad la letra del dni, también facilitada en el enunciado 
+    fichero con las estructuras de datos facilitadas para resolver la unidad
 */
 
 
@@ -61,7 +60,5 @@ array(
     )
 ));
     
-    function letra_nif($dni) {
-            return substr("TRWAGMYFPDXBNJZSQVHLCKE",strtr($dni,"XYZ","012")%23,1);
-        }
+    
 ?>

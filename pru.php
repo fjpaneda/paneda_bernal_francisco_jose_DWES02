@@ -1,31 +1,25 @@
 <?php
-    require "lib/fechas.php";
-    require "lib/recursos.php";
-
-    if(isset($_POST['enviado'])){
-
-        header('Location: ./valido.php');
-        // if($datos['coche_alquilado']){
-        //     header('Location: ./valido.php');
-        // }
-        // else {
-        //     header('Location: no_valido.php');
-        // }
-        
-    }
+    $hola = "HOLA";
+    $adios = "ADIOS";
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Documento de prueba</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST">
-        <input type="hidden" name="enviado">
-        <input type="submit" value="Enviar">
-    </form>
+    <p>
+        <?php if($hola == "HOLA"){ 
+            echo "<p class = \"valido\"> $adios</p> ";
+            //echo $adios; 
+        }?>
+        <?php if($hola != "OLA"){ 
+            echo "<p class = \"no_valido\"> $hola</p> ";
+            //echo $adios; 
+        }?>
+    </p>
 </body>
 </html>
