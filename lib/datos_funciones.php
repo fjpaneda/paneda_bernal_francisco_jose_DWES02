@@ -34,12 +34,14 @@
 
         global $coches;
         if ($dato['usuario_registrado'] && $dato['fecha_inicio']['valido'] && $dato['duracion']['valido']){
-        foreach ($coches as $coche) {
+        foreach ($coches as $key => $coche) {
             if ($dato['modelo'] == $coche['id']){
                 if($coche['disponible']){
+                    ////hay que modificar el coche del array
                     $coche['disponible'] = false;
                     $coche['fecha_inicio'] = $_POST['fecha'];
                     $coche['fecha_fin'] = modificar_fecha($_POST['fecha'],$_POST['duracion']);
+                    $coches[$key] = $coche;
                     return true;
                 }
 
