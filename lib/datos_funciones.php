@@ -17,6 +17,7 @@
     );
 
 
+    //Esta función comprueba si un usuario está registrado o no, devuelve el valor booleano
     function comprobar_registro($datos_rellenados){
         foreach(USUARIOS as $usuario){
             if(strtoupper($datos_rellenados['nombre']['valor']) == strtoupper($usuario['nombre']) 
@@ -29,7 +30,11 @@
         return false;
     }
 
-
+    //Esta función comprueba si un coche está disponible.
+    //En tal caso cambia los valores en el array coches correspondiente al vehículo,
+    //introduciendo la fecha de inicio y fin del alquiler, y cambiando la disponibilidad y devuelve true.
+    //Si no está disponible no cambia ningún dato y devuelve el valor false
+    
     function alquilar_coche($dato){
 
         global $coches;

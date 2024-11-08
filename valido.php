@@ -27,9 +27,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Formulario correcto</title>
 </head>
 <body>
+    <h1>Reserva realizada</h1>
+    <br>
     <h2><?php echo ("$nombre $apellido");?></h2>
     <img src="<?=$imagen?>" width="480" height="380"/>
 </body>
